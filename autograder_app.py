@@ -20,58 +20,28 @@ st.set_page_config(
 # Load answer key with better path handling
 @st.cache_data
 def load_answers():
-    """Load the answer key from CSV with robust path handling"""
-    # Try multiple possible locations
-    possible_paths = [
-        'MA206_Review_Answers.csv',  # Same directory
-        './MA206_Review_Answers.csv',  # Explicit current directory
-        Path(__file__).parent / 'MA206_Review_Answers.csv',  # Relative to script
-        os.path.join(os.path.dirname(__file__), 'MA206_Review_Answers.csv'),  # Alternative
-    ]
-    
-    # Debug: Show what we're looking for (in sidebar)
-    st.sidebar.markdown("### Debug Info")
-    st.sidebar.text(f"Current dir: {os.getcwd()}")
-    st.sidebar.text(f"Script: {__file__ if '__file__' in globals() else 'Unknown'}")
-    
-    # Try each path
-    for path in possible_paths:
-        try:
-            if os.path.exists(str(path)):
-                st.sidebar.success(f"✓ Found at: {path}")
-                df = pd.read_csv(str(path))
-                st.sidebar.success(f"✓ Loaded {len(df)} rows")
-                return df
-        except Exception as e:
-            st.sidebar.warning(f"✗ {path}: {str(e)[:30]}")
-            continue
-    
-    # If we get here, file wasn't found
-    st.error("""
-    ❌ **Answer key file not found!**
-    
-    Please ensure `MA206_Review_Answers.csv` is in your GitHub repository 
-    in the **same directory** as `autograder_app.py`.
-    
-    **Troubleshooting steps:**
-    1. Check your GitHub repo - are both files in the root directory?
-    2. Make sure the filename is exactly: `MA206_Review_Answers.csv` (case-sensitive)
-    3. Verify the file was committed and pushed to GitHub
-    4. Try redeploying the app on Streamlit Cloud
-    
-    **Current directory:** `{os.getcwd()}`
-    
-    **Files found here:**
-    """)
-    
-    # List files in current directory
+    """Load the answer key from CSV"""
     try:
-        files = os.listdir('.')
-        st.write(sorted(files))
-    except:
-        st.write("Could not list files")
-    
-    return None
+        # Try with error handling for malformed lines
+        return pd.read_csv(
+            'MA206_Review_Answers.csv',
+            on_bad_lines='skip',  # Skip bad lines
+            encoding='utf-8',
+            quotechar='"',
+            escapechar='\\'
+        )
+    except Exception as e:
+        st.error(f"Error loading CSV: {str(e)}")
+        # Try alternative parsing
+        try:
+            return pd.read_csv(
+                'MA206_Review_Answers.csv',
+                encoding='latin-1',
+                on_bad_lines='skip'
+            )
+        except:
+            st.error("Could not load answer key. Check CSV format.")
+            return None
 
 answers_df = load_answers()
 
