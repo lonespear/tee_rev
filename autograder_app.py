@@ -7,6 +7,8 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 from typing import Dict, Any, Tuple
+import os
+from pathlib import Path
 
 # Page configuration
 st.set_page_config(
@@ -15,15 +17,61 @@ st.set_page_config(
     layout="wide"
 )
 
-# Load answer key
+# Load answer key with better path handling
 @st.cache_data
 def load_answers():
-    """Load the answer key from CSV"""
+    """Load the answer key from CSV with robust path handling"""
+    # Try multiple possible locations
+    possible_paths = [
+        'MA206_Review_Answers.csv',  # Same directory
+        './MA206_Review_Answers.csv',  # Explicit current directory
+        Path(__file__).parent / 'MA206_Review_Answers.csv',  # Relative to script
+        os.path.join(os.path.dirname(__file__), 'MA206_Review_Answers.csv'),  # Alternative
+    ]
+    
+    # Debug: Show what we're looking for (in sidebar)
+    st.sidebar.markdown("### Debug Info")
+    st.sidebar.text(f"Current dir: {os.getcwd()}")
+    st.sidebar.text(f"Script: {__file__ if '__file__' in globals() else 'Unknown'}")
+    
+    # Try each path
+    for path in possible_paths:
+        try:
+            if os.path.exists(str(path)):
+                st.sidebar.success(f"✓ Found at: {path}")
+                df = pd.read_csv(str(path))
+                st.sidebar.success(f"✓ Loaded {len(df)} rows")
+                return df
+        except Exception as e:
+            st.sidebar.warning(f"✗ {path}: {str(e)[:30]}")
+            continue
+    
+    # If we get here, file wasn't found
+    st.error("""
+    ❌ **Answer key file not found!**
+    
+    Please ensure `MA206_Review_Answers.csv` is in your GitHub repository 
+    in the **same directory** as `autograder_app.py`.
+    
+    **Troubleshooting steps:**
+    1. Check your GitHub repo - are both files in the root directory?
+    2. Make sure the filename is exactly: `MA206_Review_Answers.csv` (case-sensitive)
+    3. Verify the file was committed and pushed to GitHub
+    4. Try redeploying the app on Streamlit Cloud
+    
+    **Current directory:** `{os.getcwd()}`
+    
+    **Files found here:**
+    """)
+    
+    # List files in current directory
     try:
-        return pd.read_csv('MA206_Review_Answers.csv')
-    except FileNotFoundError:
-        st.error("Answer key file not found. Please ensure MA206_Review_Answers.csv is in the same directory.")
-        return None
+        files = os.listdir('.')
+        st.write(sorted(files))
+    except:
+        st.write("Could not list files")
+    
+    return None
 
 answers_df = load_answers()
 
@@ -46,17 +94,7 @@ SECTIONS = {
 }
 
 def grade_numeric_answer(student_answer: float, correct_answer: str, tolerance: float = 0.01) -> bool:
-    """
-    Grade a numeric answer with tolerance for rounding
-    
-    Args:
-        student_answer: The student's numeric answer
-        correct_answer: The correct answer as string
-        tolerance: Acceptable difference for rounding errors
-    
-    Returns:
-        True if answer is correct within tolerance
-    """
+    """Grade a numeric answer with tolerance for rounding"""
     try:
         correct_val = float(correct_answer)
         return abs(float(student_answer) - correct_val) < tolerance
@@ -64,17 +102,7 @@ def grade_numeric_answer(student_answer: float, correct_answer: str, tolerance: 
         return False
 
 def grade_text_answer(student_answer: str, correct_answer: str, alternatives: str = None) -> bool:
-    """
-    Grade a text answer allowing for common variations
-    
-    Args:
-        student_answer: The student's text answer
-        correct_answer: The primary correct answer
-        alternatives: Pipe-separated alternative acceptable answers
-    
-    Returns:
-        True if answer matches correct answer or acceptable alternative
-    """
+    """Grade a text answer allowing for common variations"""
     if not student_answer:
         return False
     
@@ -105,16 +133,7 @@ def get_question_data(problem_id: str) -> Dict[str, Any]:
     return question.iloc[0].to_dict()
 
 def render_question_input(problem_id: str, question_data: Dict[str, Any]) -> Any:
-    """
-    Render appropriate input widget based on answer type
-    
-    Args:
-        problem_id: Unique problem identifier
-        question_data: Dictionary containing question information
-    
-    Returns:
-        Student's answer
-    """
+    """Render appropriate input widget based on answer type"""
     st.markdown(f"**Problem {problem_id}:** {question_data['question_part']}")
     
     answer_type = question_data['answer_type']
@@ -140,16 +159,7 @@ def render_question_input(problem_id: str, question_data: Dict[str, Any]) -> Any
     return answer
 
 def grade_section(section_name: str, student_answers: Dict[str, Any]) -> Tuple[int, int, list]:
-    """
-    Grade all answers in a section
-    
-    Args:
-        section_name: Name of the section to grade
-        student_answers: Dictionary of student answers by problem_id
-    
-    Returns:
-        Tuple of (earned_points, total_points, results_list)
-    """
+    """Grade all answers in a section"""
     problem_ids = SECTIONS[section_name]
     
     total_points = 0
