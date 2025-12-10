@@ -1,0 +1,101 @@
+problem_id,question_part,answer_type,correct_answer,alternative_answers,points
+1.1a,What are the observational units?,text,volunteers,"participants|individuals",2
+1.1b,Is heart rate categorical or quantitative?,text,quantitative,,2
+1.1c,Observational study or experiment?,text,experiment,,2
+1.2a,Can we conclude causation? (Yes/No),text,no,,2
+1.2b,Explain why or why not,text,no random assignment,"self-selected|confounding variables not controlled",3
+1.3a,Plot for test score distribution,text,histogram,,2
+1.3b,Plot for count by major,text,bar graph,,2
+1.3c,Plot for study hours vs exam scores,text,scatterplot,"scatter plot",2
+2.1a,What is the statistic?,numeric,0.68,"68%",2
+2.1b,Parameter of interest description,text,proportion of all college students who use social media more than 2 hours per day,,3
+2.1c,Margin of error,numeric,0.066,0.0660,2
+2.2a,Sampling method,text,convenience sampling,"convenience sample",2
+2.2b,Can generalize to all students? (Yes/No),text,no,,2
+2.2c,Explanation,text,not a random sample,"potential bias|only sampled at library",2
+3.1a,P(A and B) for independent events,numeric,0.28,0.280,2
+3.1b,P(A|B) for independent events,numeric,0.4,0.40,2
+3.1c,P(A or B) for independent events,numeric,0.82,0.820,2
+3.2a,P(C and D) for mutually exclusive,numeric,0,0.0,2
+3.2b,P(C|D) for mutually exclusive,numeric,0,0.0,2
+3.2c,P(C or D) for mutually exclusive,numeric,0.6,0.60,2
+3.3.1,Probability concept - lightbulb lifetime,text,d,,2
+3.3.2,Probability concept - die showing 4,text,a,,2
+3.3.3,Probability concept - spam email,text,e,,2
+3.3.4,Probability concept - integration for interval,text,b,,2
+3.3.5,Probability concept - at most 5 customers,text,c,,2
+4.1,Test for mean height > 70 inches,text,b,"one-sample t-test",2
+4.2,Test for proportion difference by sex,text,e,"two-proportion z-test",2
+4.3,Test for GPA difference by major,text,f,"two-sample t-test",2
+4.4,Test for relationship sleep and GPA,text,c,"correlation|simple linear regression",2
+4.5,Test for GPA with multiple predictors,text,d,"multiple linear regression",2
+4.6,Test for proportion > 85%,text,a,"one-proportion z-test",2
+5a,Null hypothesis,text,pi = 0.5,"H0: pi = 0.5",3
+5b,Alternative hypothesis,text,pi ≠ 0.5,"Ha: pi ≠ 0.5|pi != 0.5",3
+5c,Sample proportion,numeric,0.58,0.580,2
+5d,Standard error,numeric,0.05,0.050,3
+5e,z-statistic,numeric,1.6,1.60,3
+5f,p-value,numeric,0.110,0.11,3
+5g,Decision,text,fail to reject H0,"fail to reject|FTR",3
+5h,95% Confidence interval,text,(0.482\, 0.678),"0.482 to 0.678",3
+5i,Conclusion,text,insufficient evidence to conclude coin is unfair,,4
+6a,Null hypothesis,text,mu_B - mu_A = 0,"mu_B = mu_A|H0: mu_B - mu_A = 0",3
+6b,Alternative hypothesis,text,mu_B - mu_A > 0,"mu_B > mu_A|Ha: mu_B - mu_A > 0",3
+6c,Difference in means,numeric,5,5.0,2
+6d,Standard error,numeric,2.05,"2.04|2.06",3
+6e,t-statistic,numeric,2.44,"2.43|2.45",3
+6f,Degrees of freedom,numeric,48,"47|49|50",2
+6g,p-value,numeric,0.009,"0.0089|0.0090|0.0091",3
+6h,Decision at alpha=0.05,text,reject H0,"reject",3
+6i,Can infer causality? (Yes/No),text,no,,2
+6j,Explanation for causality,text,no random assignment,"lack of random assignment|self-selected",3
+7a,Why paired t-test appropriate,text,same students measured twice,"paired design|before and after",3
+7b_H0,Null hypothesis,text,mu_d = 0,"H0: mu_d = 0",2
+7b_Ha,Alternative hypothesis,text,mu_d > 0,"Ha: mu_d > 0",2
+7c,t-statistic,numeric,7.68,"7.67|7.69",3
+7d,Degrees of freedom,numeric,9,9.0,2
+7e,p-value,numeric,0.000,"< 0.001|0.0000",3
+7f,Conclusion,text,reject H0; studying significantly improved scores,"studying improved scores|reject null",4
+8a,Interpret slope,text,for each additional hour studied exam score increases by 3.8 points on average,,4
+8b,Interpret intercept,text,a student who studies 0 hours is predicted to score 45.2 points,,4
+8c,Predicted score for 8 hours,numeric,75.6,75.60,3
+8d,Is relationship significant? (Yes/No),text,yes,,2
+8e,Percentage of variation explained,numeric,63.1,"63.10|0.631",2
+8f,Correlation coefficient,numeric,0.794,"0.79|0.795",3
+9a,Interpret SqFt coefficient,text,for each additional square foot price increases by $0.12 thousand holding other variables constant,,4
+9b,Interpret Urban coefficient,text,urban houses cost $35 thousand more than suburban houses on average holding other variables constant,,4
+9c,Predicted price,numeric,405,"405000|405.0",3
+9d,Is Beds significant at 0.05? (Yes/No),text,yes,,2
+10a,Is interaction significant? (Yes/No),text,yes,,2
+10b,What does significant interaction indicate,text,effect of exercise on weight loss depends on diet quality,"interaction between variables",3
+11a,Can conclude causation? (Yes/No),text,no,,2
+11b,Confounding variable,text,temperature,"population density|summer|season",3
+11c,How random assignment helps,text,random assignment balances confounding variables between groups,,3
+12a,Probability widget is defective,numeric,0.0295,"0.029|0.030|2.95%",3
+12b,P(Machine B | defective),numeric,0.475,"0.47|0.48",4
+12c,Which probability rule,text,bayes' theorem,"bayes theorem|bayes",2
+13a,P(X ≤ 2),numeric,0.80,0.8,2
+13b,P(X > 1),numeric,0.55,0.550,2
+13c,E(X),numeric,1.65,1.650,3
+13d,Interpret E(X),text,on average 1.65 goals are scored per match,,3
+13e,Var(X),numeric,1.23,"1.2275|1.228",3
+13f,SD(X),numeric,1.11,"1.108|1.107",2
+14a,E(Y),numeric,9.95,9.950,2
+14b,Var(Y),numeric,11.05,"11.0|11.048",3
+14c,SD(Y),numeric,3.33,"3.324|3.32",2
+15a,Verify valid pdf,text,integral equals 1,"verification shown",3
+15b,CDF F(x),text,x^2/4,"x²/4|x squared over 4",3
+15c,P(0.5 ≤ X ≤ 1.5),numeric,0.5,0.50,3
+15d,P(X > 1),numeric,0.75,0.750,2
+16a,PDF f(t),text,t/50,"2t/100",3
+16b,P(T ≤ 5),numeric,0.25,0.250,2
+16c,P(3 < T < 7),numeric,0.4,0.40,3
+17a,Point estimate,numeric,3.34,3.340,2
+17b,Sample mean always in CI? (Yes/No),text,yes,,2
+17c,Population mean always in CI? (Yes/No),text,no,,2
+17d,Interpret CI,text,we are 95% confident the true mean GPA is between 3.21 and 3.47,,3
+18a,Decision with p=0.032 alpha=0.05,text,reject H0,"reject",2
+18b,What is Type I error,text,rejected H0 when it was actually true,"false positive",3
+18c,Decision with p=0.032 alpha=0.01,text,fail to reject H0,"fail to reject|FTR",2
+19a,Which assumption violated,text,linearity,"independence",2
+19b,Which assumption satisfied,text,normality of residuals,"normality",2
